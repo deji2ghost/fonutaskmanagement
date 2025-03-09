@@ -35,7 +35,7 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
     <DropdownContainer>
       <CustomButton
         dropdown
-        text={selectedOption}
+        text={selectedOption ? selectedOption : "All"}
         icon={isOpen ? <BiChevronUp /> : <BiChevronDown />} 
         width="100%"
         justify="space-between"
