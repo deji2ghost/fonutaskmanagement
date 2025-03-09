@@ -5,6 +5,8 @@ import {
   Description,
   IconButton,
   StatusDot,
+  StatusText,
+  StatusWrapper,
   TaskActions,
   TaskCard,
   Title,
@@ -18,25 +20,32 @@ const Tasks: React.FC<taskPropTypes> = ({
   description,
   id,
   task,
-  handleRemoveTask,
   handleEditModal,
+  handleDeleteModal
 }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleTaskCompletion = (id: string) => {
-    dispatch(toggleTaskCompletion(id))
-  }
+    dispatch(toggleTaskCompletion(id));
+  };
 
   return (
     <TaskCard completed={task.completed} key={id}>
       <CardHeader>
-        <StatusDot
-          completed={task.completed}
+        <StatusWrapper
           onClick={() => handleTaskCompletion(id)}
-          style={{ cursor: "pointer" }}
-        />
+          completed={task.completed}
+        >
+          <StatusDot
+            completed={task.completed}
+            onClick={() => handleTaskCompletion(id)}
+          />
+          <StatusText completed={task.completed}>
+            {task.completed ? "Completed" : "Active"}
+          </StatusText>
+        </StatusWrapper>
         <TaskActions>
-          <IconButton onClick={() => handleRemoveTask(id)} color="red">
+          <IconButton onClick={() => handleDeleteModal(task)} color="red">
             <BiTrash />
           </IconButton>
           <IconButton onClick={() => handleEditModal(task)} color="blue">

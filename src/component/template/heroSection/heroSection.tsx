@@ -6,19 +6,25 @@ import Picture from "../../../../public/images/Group 273.svg";
 import {
   removeTask,
   setTaskForm,
+  toggleDeleteModal,
   toggleEditModal,
 } from "../../../store/userSlice/slice";
 import { RootState } from "../../../store/store";
 import Tasks from "../../tasks/tasks";
 import { HeroWrapper, NoTaskWrapper, TaskWrapper } from "./HeroStyles";
+import Modal from "../../modal/Modal";
+import CustomButton from "../../customButton/customButton";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const taskForm = useSelector((state: RootState) => state.tasks.taskForm);
+  const showDeleteModal = useSelector((state: RootState) => state.tasks.showDeleteModal);
   const filterStatus = useSelector((state: RootState) => state.tasks.status);
 
   const handleRemoveTask = (taskId: string) => {
     dispatch(removeTask(taskId));
+    handleCloseDeleteModal()
   };
 
   const handleEditModal = (task: TaskProp) => {
@@ -32,6 +38,30 @@ const HeroSection = () => {
       })
     );
   };
+
+  const handleDeleteModal = (task: TaskProp) => {
+    dispatch(toggleDeleteModal(true));
+    dispatch(
+      setTaskForm({
+        id: task.id,
+        description: task.description,
+        title: task.title,
+        completed: task.completed,
+      })
+    );
+  };
+
+  const handleCloseDeleteModal = () => {
+    dispatch(toggleDeleteModal(false));
+    dispatch(
+    setTaskForm({
+      id: "",
+      description: "",
+      title: "",
+      completed: "",
+    })
+  )
+  }
 
   const filteredTasks = tasks.filter((task: TaskProp) => {
     if (filterStatus === "All") return true;
@@ -64,11 +94,24 @@ const HeroSection = () => {
               id={task.id}
               handleEditModal={handleEditModal}
               handleRemoveTask={handleRemoveTask}
+              handleDeleteModal={handleDeleteModal}
               task={task}
             />
           ))}
         </TaskWrapper>
       )}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={handleCloseDeleteModal}
+        header="Delete Task"
+        content={<p>Are you sure you want to delete this task</p>}
+        footer={
+          <>
+            <CustomButton onClick={handleCloseDeleteModal} text="No" />
+            <CustomButton onClick={() => handleRemoveTask(taskForm.id)} text="Yes" />
+          </>
+        }
+      />
     </HeroWrapper>
   );
 };

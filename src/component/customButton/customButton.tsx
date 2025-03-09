@@ -1,13 +1,36 @@
-import { BiChevronDown, BiChevronUp } from "react-icons/bi"
-import { MainButtonProps } from "./buttonProps"
-import { Button } from "./buttonStyles"
+import { MainButtonProps } from "./buttonProps";
+import { Button } from "./buttonStyles";
 
-const CustomButton: React.FC<MainButtonProps> = ({ text, onClick, width, bgColor, textColor, border, dropdown, isOpen}) => {
+const CustomButton: React.FC<MainButtonProps> = ({
+  text,
+  onClick,
+  width,
+  bgColor,
+  textColor,
+  border,
+  dropdown,
+  icon,
+  justify,
+}) => {
   return (
-    <Button width={width} bgColor={bgColor} textColor={textColor} border={border} onClick={onClick}>
-      {text} {dropdown && ( isOpen ? <BiChevronUp /> : <BiChevronDown /> )}
+    <Button
+      width={width}
+      bgColor={bgColor}
+      textColor={textColor}
+      border={border}
+      justify={justify}
+      onClick={onClick}
+    >
+      {dropdown ? (
+        <>
+          <>{text}</>
+          <>{icon}</>
+        </>
+      ) : (
+        text
+      )}
     </Button>
-  )
-}
+  );
+};
 
-export default CustomButton
+export default CustomButton;

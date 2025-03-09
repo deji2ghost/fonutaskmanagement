@@ -10,5 +10,7 @@ export interface TaskState {
   status: "All" | "Completed" | "Active";
   showModal: boolean;
   showEditModal: boolean;
+  showDeleteModal: boolean;
   taskForm: TaskProp;
+  error: string,
 }

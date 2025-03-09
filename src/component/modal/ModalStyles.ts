@@ -60,8 +60,8 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  background: #007bff;
+  padding: 5px 20px;
+  background: #633CFF;
   color: white;
   font-size: 18px;
 
@@ -107,12 +107,7 @@ export const Footer = styled.div`
   padding: 15px 20px;
   background: #f1f1f1;
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-  }
+  /* flex-direction: row; */
+  /* justify-content: flex-end; */
+  gap: 30px;
 `;

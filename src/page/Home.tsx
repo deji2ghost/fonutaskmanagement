@@ -8,6 +8,7 @@ import {
   setTaskForm,
   toggleEditModal,
   updateTask,
+  setError,
 } from "../store/userSlice/slice";
 import { RootState } from "../store/store";
 
@@ -15,7 +16,7 @@ import HeroSection from "../component/template/heroSection/heroSection";
 import CtaSection from "../component/template/ctaSection/ctaSection";
 import CustomInput from "../component/customInput/customInput";
 import CustomButton from "../component/customButton/customButton";
-import { PageContainer, Wrapper } from "./HomeStyles";
+import { CustomInputWrapper, ErrorTag, PageContainer, Wrapper } from "./HomeStyles";
 
 const LazyModal = lazy(() => import("../component/modal/Modal"));
 
@@ -24,6 +25,7 @@ const Home = () => {
   const showModal = useSelector((state: RootState) => state.tasks.showModal);
   const showEditModal = useSelector((state: RootState) => state.tasks.showEditModal);
   const taskForm = useSelector((state: RootState) => state.tasks.taskForm);
+  const error = useSelector((state: RootState) => state.tasks.error);
 
   const handleModal = (open: boolean) => {
     dispatch(toggleModal(open));
@@ -44,23 +46,25 @@ const Home = () => {
     dispatch(
       setTaskForm({ id: "", title: "", description: "", completed: false })
     );
-    // setEditMode(false);
+    dispatch(setError(""));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(setTaskForm({ ...taskForm, [name]: value }));
+    dispatch(setError(""));
   };
 
   const handleAddTask = () => {
-    dispatch(
-      addTask({
-        id: uuidv4(),
-        title: taskForm.title,
-        description: taskForm.description,
-        completed: taskForm.completed,
-      })
-    );
+    const newTask = {
+      id: uuidv4(),
+      title: taskForm.title,
+      description: taskForm.description,
+      completed: false,
+    };
+  
+    dispatch(addTask(newTask));
+    if (!newTask.title.trim() || !newTask.description.trim()) return;
     handleModal(false);
     resetForm();
   };
@@ -78,7 +82,7 @@ const Home = () => {
               onClose={() => handleModal(false)}
               header="Add new Task"
               content={
-                <div>
+                <CustomInputWrapper>
                   <CustomInput
                     label="Title"
                     type="text"
@@ -93,13 +97,14 @@ const Home = () => {
                     value={taskForm.description}
                     onChange={handleChange}
                   />
-                </div>
+                  {error && <ErrorTag>{error}</ErrorTag>}
+                </CustomInputWrapper>
               }
               footer={
-                <div>
-                  <CustomButton onClick={() => handleModal(false)} text="Cancel"/>
+                <>
+                  <CustomButton bgColor="transparent" textColor="#633CFF" border="1px solid #633CFF" onClick={() => handleModal(false)} text="Cancel"/>
                   <CustomButton onClick={handleAddTask} text="Add Task"/>
-                </div>
+                </>
               }
             />
 
@@ -108,7 +113,7 @@ const Home = () => {
               onClose={() => handleEditModal(false)}
               header="Edit Task"
               content={
-                <div>
+                <CustomInputWrapper>
                   <CustomInput
                     label="Title"
                     type="text"
@@ -123,13 +128,13 @@ const Home = () => {
                     value={taskForm.description}
                     onChange={handleChange}
                   />
-                </div>
+                </CustomInputWrapper>
               }
               footer={
-                <div>
-                  <CustomButton onClick={() => handleEditModal(false)} text="Cancel"/>
+                <>
+                  <CustomButton bgColor="transparent" textColor="#633CFF" border="1px solid #633CFF" onClick={() => handleEditModal(false)} text="Cancel"/>
                   <CustomButton onClick={handleUpdateTask} text="Update Task"/>
-                </div>
+                </>
               }
             />
         </Suspense>

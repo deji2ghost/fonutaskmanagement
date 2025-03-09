@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DropdownContainer, DropdownItem, DropdownMenu } from "./dropdownStyles";
 import CustomButton from "../customButton/customButton";
 import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/localstorage/localstorage";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 interface DropdownButtonProps {
   options: string[];
@@ -35,8 +36,9 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
       <CustomButton
         dropdown
         text={selectedOption}
-        isOpen={isOpen} 
+        icon={isOpen ? <BiChevronUp /> : <BiChevronDown />} 
         width="100%"
+        justify="space-between"
         bgColor="transparent"
         textColor="#633CFF"
         border="1px solid #633CFF"

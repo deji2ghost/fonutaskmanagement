@@ -12,7 +12,9 @@ const initialState: TaskState = {
   status: loadFromLocalStorage("filterStatus") || "All",
   showModal: false,
   showEditModal: false,
+  showDeleteModal: false,
   taskForm: { id: "", title: "", description: "", completed: false },
+  error: "",
 };
 
 const taskSlice = createSlice({
@@ -20,6 +22,10 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
+      if (!action.payload.title.trim() || !action.payload.description.trim()) {
+        state.error = "Title and Description cannot be empty.";
+        return;
+      }
       state.tasks.push(action.payload);
       saveToLocalStorage("tasks", state.tasks);
       toast.success("Task added successfully! ✅");
@@ -30,8 +36,8 @@ const taskSlice = createSlice({
       toast.error("Task deleted! ❌");
     },
     setTaskForm: (state, action) => {
-        state.taskForm = action.payload;
-      },
+      state.taskForm = action.payload;
+    },
     setFilterStatus: (state, action) => {
       state.status = action.payload;
       saveToLocalStorage("filterStatus", action.payload);
@@ -64,9 +70,26 @@ const taskSlice = createSlice({
     toggleEditModal: (state, action) => {
       state.showEditModal = action.payload;
     },
+    toggleDeleteModal: (state, action) => {
+      state.showDeleteModal = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { addTask, removeTask, setFilterStatus, toggleModal, toggleTaskCompletion, updateTask, setTaskForm, toggleEditModal } = taskSlice.actions;
+export const {
+  addTask,
+  removeTask,
+  setFilterStatus,
+  toggleModal,
+  toggleTaskCompletion,
+  updateTask,
+  setTaskForm,
+  toggleEditModal,
+  toggleDeleteModal,
+  setError,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

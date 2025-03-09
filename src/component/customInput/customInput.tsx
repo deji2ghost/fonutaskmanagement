@@ -1,12 +1,13 @@
 import CustomLabel from '../customLabel/customLabel'
+import { InputComponent, InputWrapper } from './InputStyles'
 import { inputProps } from './inputtypes'
 
 const CustomInput: React.FC<inputProps> = ({label, type, name, value, onChange}) => {
   return (
-    <div>
+    <InputWrapper>
       <CustomLabel label={label}/>
-      <input type={type} name={name} value={value} onChange={onChange}/> 
-    </div>
+      <InputComponent type={type} name={name} value={value} onChange={onChange}/> 
+    </InputWrapper>
   )
 }
 

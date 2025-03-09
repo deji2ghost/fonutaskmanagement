@@ -2,9 +2,17 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   padding: 16px;
-  /* width: 100%; */
-  /* max-width: 100vw; */
   overflow-x: hidden;
+`
+
+export const CustomInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`
+
+export const ErrorTag = styled.p`
+  color: red;
 `
 
 export const PageContainer = styled.div`
@@ -14,7 +22,6 @@ export const PageContainer = styled.div`
   gap: 20px;
   padding: 24px;
   min-height: 100vh;
-  /* width: 100%; */
   background: #FFFFFF;
   border-radius: 12px;
   overflow-x: hidden;

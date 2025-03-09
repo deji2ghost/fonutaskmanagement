@@ -53,5 +53,6 @@ export const DropdownItem = styled.li`
 
   &:hover {
     background: #f0f0f0;
+    color: #633CFF;
   }
 `;

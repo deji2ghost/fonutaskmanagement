@@ -6,5 +6,6 @@ export interface taskPropTypes{
     id: string, 
     task: TaskProp, 
     handleRemoveTask: (id: string)=> void, 
-    handleEditModal: (value: TaskProp)=> void
+    handleEditModal: (value: TaskProp)=> void,
+    handleDeleteModal: (value: TaskProp) => void
 }
