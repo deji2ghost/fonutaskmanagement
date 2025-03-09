@@ -11,7 +11,7 @@ export const Button = styled.button<ButtonProps>`
   padding: 11px 27px;
   font-size: 16px;
   font-weight: bold;
-  border: none;
+  border: ${({ border }) => border || "none"};
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease-in-out;

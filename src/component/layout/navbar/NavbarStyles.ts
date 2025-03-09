@@ -1,0 +1,22 @@
+import styled from "styled-components";
+
+export const NavbarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  gap: 5px;
+  padding: 0px 24px;
+
+  @media (min-width: 768px) {
+    /* Tablet View */
+    padding: 0 20px;
+  }
+`;
+
+export const NavHead = styled.h1`
+
+
+  @media (min-width: 768px) {
+    /* Tablet View */
+  }
+`;

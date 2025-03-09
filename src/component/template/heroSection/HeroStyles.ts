@@ -32,7 +32,9 @@ export const NoTaskWrapper = styled.div`
   justify-content: center;
   /* align-items: center; */
   text-align: center;
-  gap: 24px;
+  gap: 12px;
+  border-radius: 12px;
+  padding: 20px;
   width: 100%;
   background-color: #fafafa;
 

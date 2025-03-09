@@ -44,7 +44,7 @@ export const ButtonWrapper = styled.div`
   width: 100%;
   @media (min-width: 768px) {
     /* Tablet View */
-    width: 30%;
+    width: 15%;
   }
 `;
 

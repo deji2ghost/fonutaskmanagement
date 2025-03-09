@@ -4,7 +4,8 @@ export interface ButtonProps {
     bgColor?: string;
     textColor?: string;
     size?: "small" | "medium" | "large";
-    width?: string
+    width?: string,
+    border?: string 
 }
 
 export interface MainButtonProps {
@@ -12,5 +13,8 @@ export interface MainButtonProps {
     text: string | JSX.Element;
     width?: string, 
     bgColor?: string, 
-    textColor?: string
+    textColor?: string,
+    dropdown?: boolean,
+    isOpen?: boolean,
+    border?: string
 }

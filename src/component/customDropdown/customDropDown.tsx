@@ -33,8 +33,13 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
   return (
     <DropdownContainer>
       <CustomButton
+        dropdown
         text={selectedOption}
+        isOpen={isOpen} 
         width="100%"
+        bgColor="transparent"
+        textColor="#633CFF"
+        border="1px solid #633CFF"
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (

@@ -5,6 +5,7 @@ import {
   saveToLocalStorage,
 } from "../../utils/localstorage/localstorage";
 import { TaskState } from "./sliceTypes";
+import { toast } from "sonner";
 
 const initialState: TaskState = {
   tasks: loadFromLocalStorage("tasks") || [],
@@ -21,10 +22,12 @@ const taskSlice = createSlice({
     addTask: (state, action) => {
       state.tasks.push(action.payload);
       saveToLocalStorage("tasks", state.tasks);
+      toast.success("Task added successfully! ✅");
     },
     removeTask: (state, action) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
       saveToLocalStorage("tasks", state.tasks);
+      toast.error("Task deleted! ❌");
     },
     setTaskForm: (state, action) => {
         state.taskForm = action.payload;
@@ -40,6 +43,7 @@ const taskSlice = createSlice({
       if (index !== -1) {
         state.tasks[index] = action.payload;
         saveToLocalStorage("tasks", state.tasks);
+        toast.success("Task updated successfully! ✏️");
       }
     },
     toggleTaskCompletion: (state, action) => {
@@ -47,6 +51,11 @@ const taskSlice = createSlice({
       if (task) {
         task.completed = !task.completed;
         saveToLocalStorage("tasks", state.tasks);
+        toast.info(
+          task.completed
+            ? "Task marked as completed! ✅"
+            : "Task marked as active! 🔄"
+        );
       }
     },
     toggleModal: (state, action) => {
