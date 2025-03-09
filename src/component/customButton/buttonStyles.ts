@@ -8,8 +8,8 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button<ButtonProps>`
-  padding: ${({ size }) => (size === "small" ? "6px 12px" : size === "large" ? "14px 28px" : "10px 20px")};
-  font-size: ${({ size }) => (size === "small" ? "14px" : size === "large" ? "18px" : "16px")};
+  padding: 11px 27px;
+  font-size: 16px;
   font-weight: bold;
   border: none;
   border-radius: 8px;

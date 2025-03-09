@@ -9,5 +9,8 @@ export interface ButtonProps {
 
 export interface MainButtonProps {
     onClick: () => void;
-    text: string | JSX.Element
+    text: string | JSX.Element;
+    width?: string, 
+    bgColor?: string, 
+    textColor?: string
 }

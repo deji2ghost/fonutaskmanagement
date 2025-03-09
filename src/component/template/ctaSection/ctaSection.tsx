@@ -4,7 +4,7 @@ import { setFilterStatus, toggleModal } from "../../../store/userSlice/slice";
 import { filterData } from "../../../../public/data/filterData";
 import CustomDropDown from "../../customDropdown/customDropDown";
 import CustomButton from "../../customButton/customButton";
-import { Container } from "./ctaSectionStyle";
+import { ButtonWrapper, Container, CtaHeader, CtaParagraph, HeadContainer } from "./ctaSectionStyle";
 
 const CtaSection = () => {
   const dispatch = useDispatch();
@@ -20,9 +20,14 @@ const CtaSection = () => {
   
   return (
     <Container>
-      <h1>Task Management Tabs</h1>
-      <CustomButton text="Add Task" onClick={() => handleModal(true)} />
-      <CustomDropDown onSelect={handleFilter} options={filterData}/>
+      <HeadContainer>
+        <CtaHeader>Task Management Tabs</CtaHeader>
+        <CtaParagraph>Add/edit/remove Tasks below.</CtaParagraph>
+      </HeadContainer>
+      <ButtonWrapper>
+        <CustomButton text="Add Task" onClick={() => handleModal(true)} />
+        <CustomDropDown onSelect={handleFilter} options={filterData}/>
+      </ButtonWrapper>
     </Container>
   );
 };

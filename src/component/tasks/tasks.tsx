@@ -1,12 +1,17 @@
 import { BiPen, BiTrash } from "react-icons/bi";
 import { taskPropTypes } from "./taskTypes";
 import {
+  CardHeader,
+  Description,
   IconButton,
   StatusDot,
   TaskActions,
   TaskCard,
-  TaskContent,
+  Title,
+  TitleBox,
 } from "./TaskStyles";
+import { useDispatch } from "react-redux";
+import { toggleTaskCompletion } from "../../store/userSlice/slice";
 
 const Tasks: React.FC<taskPropTypes> = ({
   title,
@@ -16,21 +21,33 @@ const Tasks: React.FC<taskPropTypes> = ({
   handleRemoveTask,
   handleEditModal,
 }) => {
+  const dispatch = useDispatch()
+
+  const handleTaskCompletion = (id: string) => {
+    dispatch(toggleTaskCompletion(id))
+  }
+
   return (
-    <TaskCard key={id}>
-      <TaskContent>
-        <StatusDot completed={task.completed} />
-        <h1>{title}</h1>
-        <p>{description}</p>
-      </TaskContent>
-      <TaskActions>
-        <IconButton onClick={() => handleRemoveTask(id)} color="red">
-          <BiTrash />
-        </IconButton>
-        <IconButton onClick={() => handleRemoveTask(id)} color="blue">
-          <BiPen onClick={() => handleEditModal(task)} />
-        </IconButton>
-      </TaskActions>
+    <TaskCard completed={task.completed} key={id}>
+      <CardHeader>
+        <StatusDot
+          completed={task.completed}
+          onClick={() => handleTaskCompletion(id)}
+          style={{ cursor: "pointer" }}
+        />
+        <TaskActions>
+          <IconButton onClick={() => handleRemoveTask(id)} color="red">
+            <BiTrash />
+          </IconButton>
+          <IconButton onClick={() => handleEditModal(task)} color="blue">
+            <BiPen />
+          </IconButton>
+        </TaskActions>
+      </CardHeader>
+      <TitleBox>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+      </TitleBox>
     </TaskCard>
   );
 };

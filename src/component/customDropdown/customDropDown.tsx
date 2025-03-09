@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropdownContainer, DropdownItem, DropdownMenu } from "./dropdownStyles";
 import CustomButton from "../customButton/customButton";
+import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/localstorage/localstorage";
 
 interface DropdownButtonProps {
   options: string[];
@@ -12,11 +13,28 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
   onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("All");
+
+  useEffect(() => {
+    const savedOption = loadFromLocalStorage("selectedFilter");
+    if (savedOption) {
+      setSelectedOption(savedOption);
+      onSelect(savedOption);
+    }
+  }, [onSelect]);
+
+  const handleSelect = (option: string) => {
+    setSelectedOption(option);
+    saveToLocalStorage("selectedFilter", option);
+    onSelect(option);
+    setIsOpen(false);
+  };
 
   return (
     <DropdownContainer>
       <CustomButton
-        text="All"
+        text={selectedOption}
+        width="100%"
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (
@@ -25,8 +43,7 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
             <DropdownItem
               key={option}
               onClick={() => {
-                onSelect(option);
-                setIsOpen(false);
+                handleSelect(option)
               }}
             >
               {option}

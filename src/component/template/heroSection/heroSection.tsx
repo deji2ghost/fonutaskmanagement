@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { TaskProp } from "../../../store/userSlice/sliceTypes";
 
+import Picture from "../../../../public/images/Group 273.svg";
 import {
   removeTask,
   setTaskForm,
@@ -9,7 +10,7 @@ import {
 } from "../../../store/userSlice/slice";
 import { RootState } from "../../../store/store";
 import Tasks from "../../tasks/tasks";
-import { HeroWrapper } from "./HeroStyles";
+import { HeroWrapper, NoTaskWrapper, TaskWrapper } from "./HeroStyles";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -42,21 +43,31 @@ const HeroSection = () => {
   return (
     <HeroWrapper>
       {filteredTasks.length < 1 ? (
-        <p>No tasks available, Click on all to view all task</p>
+        <NoTaskWrapper>
+          <img src={Picture} />
+          <h1>Let’s get you started</h1>
+          <p>Use the “Add new Task” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you manage your tasks</p>
+        </NoTaskWrapper>
       ) : tasks.length < 1 ? (
-        <p>Please click on the button on the top to add new task</p>
+        <NoTaskWrapper>
+          <img src={Picture} />
+          <h1>Let’s get you started</h1>
+          <p>Use the “Add new Task” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you manage your tasks</p>
+        </NoTaskWrapper>
       ) : (
-        filteredTasks.map((task: TaskProp) => (
-          <Tasks
-            key={task.id}
-            description={task.description}
-            title={task.title}
-            id={task.id}
-            handleEditModal={handleEditModal}
-            handleRemoveTask={handleRemoveTask}
-            task={task}
-          />
-        ))
+        <TaskWrapper>
+          {filteredTasks.map((task: TaskProp) => (
+            <Tasks
+              key={task.id}
+              description={task.description}
+              title={task.title}
+              id={task.id}
+              handleEditModal={handleEditModal}
+              handleRemoveTask={handleRemoveTask}
+              task={task}
+            />
+          ))}
+        </TaskWrapper>
       )}
     </HeroWrapper>
   );

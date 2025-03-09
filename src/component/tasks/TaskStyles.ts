@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 // Task Card Container
-export const TaskCard = styled.div`
+export const TaskCard = styled.div<{ completed: boolean }>`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background: #FAFAFA;
@@ -12,6 +13,7 @@ export const TaskCard = styled.div`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   cursor: pointer;
+  border-bottom: ${({completed}) => (completed ? "1px solid green" : "1px solid orange")};
 
   &:hover {
     transform: translateY(-3px);
@@ -25,11 +27,19 @@ export const TaskCard = styled.div`
   }
 `;
 
-// Task Content (Title + Description)
-export const TaskContent = styled.div`
+export const CardHeader = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  width: 100%;
+  text-align: center;
+  gap: 5px;
   flex-grow: 1;
 `;
 
@@ -46,14 +56,14 @@ export const StatusDot = styled.span<{ completed: boolean }>`
 export const Title = styled.h3`
   font-size: 18px;
   color: #333;
-  margin: 0;
+  text-align: center;
 `;
 
 // Description Styling
 export const Description = styled.p`
   font-size: 14px;
   color: #666;
-  margin: 5px 0 0;
+  text-align: center;
 `;
 
 // Task Actions Container
