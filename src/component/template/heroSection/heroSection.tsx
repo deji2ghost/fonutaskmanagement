@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TaskSkeleton from "../../skeletonLoader/skeletonLoader";
 
@@ -18,6 +18,7 @@ import {
 import Tasks from "../../tasks/tasks";
 import { HeroWrapper, NoTaskWrapper, TaskWrapper } from "./HeroStyles";
 import CustomButton from "../../customButton/customButton";
+import { Pagination } from "../../pagination/customPagination"
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const HeroSection = () => {
   );
   const loading = useSelector((state: RootState) => state.tasks.loading);
   const filterStatus = useSelector((state: RootState) => state.tasks.status);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
 
   const handleRemoveTask = useCallback(
     (taskId: string) => {
@@ -82,6 +85,12 @@ const HeroSection = () => {
     });
   }, [tasks, filterStatus]);
 
+  const totalPages = Math.ceil(filteredTasks.length / ITEMS_PER_PAGE);
+  const paginatedTasks = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredTasks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredTasks, currentPage]);
+
   return (
     <HeroWrapper>
       {loading ? (
@@ -112,7 +121,7 @@ const HeroSection = () => {
         </NoTaskWrapper>
       ) : (
         <TaskWrapper>
-          {filteredTasks.map((task: TaskProp) => (
+          {paginatedTasks.map((task: TaskProp) => (
             <Tasks
               completed={task.completed}
               key={task.id}
@@ -128,6 +137,7 @@ const HeroSection = () => {
           ))}
         </TaskWrapper>
       )}
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
       {showDeleteModal ? (
         <Suspense>
           <LazyModal

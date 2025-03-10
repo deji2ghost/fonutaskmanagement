@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const HeroWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
   width: 100%;
 `;
 
@@ -35,6 +37,7 @@ export const NoTaskWrapper = styled.div`
   padding: 20px;
   width: 100%;
   background-color: #fafafa;
+  min-height: 100vh;
 
   @media (min-width: 768px) {
     margin: 0 auto;
