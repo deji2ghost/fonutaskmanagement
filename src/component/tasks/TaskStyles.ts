@@ -29,6 +29,7 @@ export const TaskCard = styled.div<{ $completed?: boolean }>`
 export const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 `;
 
@@ -45,9 +46,11 @@ export const TitleBox = styled.div`
 export const StatusWrapper = styled.div<{ $completed?: boolean }>`
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: 50%;
-  padding: 0 9px;
+  /* gap: 10px; */
+  height: 30px;
+  justify-content: space-between;
+  width: 45%;
+  padding: 10px 9px !important; 
   border-radius: 8px;
   cursor: pointer;
   background-color: transparent;
@@ -55,12 +58,12 @@ export const StatusWrapper = styled.div<{ $completed?: boolean }>`
   transition: border-color 0.3s ease, background-color 0.3s ease;
 
   @media (min-width: 768px) {
-    width: 60%;
+    width: 35%;
     padding: 0 10px;
   }
 
   @media (min-width: 1024px) {
-    width: 50%;
+    width: 38%;
     padding: 0 10px;
   }
 `;
@@ -99,13 +102,18 @@ export const TaskActions = styled.div`
 
 export const IconButton = styled.button<{ color: string }>`
   background: none;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   border: none;
   cursor: pointer;
   color: ${({ color }) => color};
   transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 
   svg {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   &:hover {

@@ -42,9 +42,11 @@ const Tasks: React.FC<taskPropTypes> = ({
         <TaskActions>
           <IconButton onClick={() => handleDeleteModal(task)} color="red">
             <BiTrash />
+            <span>Delete</span>
           </IconButton>
           <IconButton onClick={() => handleEditModal(task)} color="blue">
             <BiPen />
+            <span>Edit</span>
           </IconButton>
         </TaskActions>
       </CardHeader>
