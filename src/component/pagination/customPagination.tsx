@@ -1,5 +1,5 @@
 import React from "react";
-import { getPaginationArray } from "./Pagination";
+import { getPaginationArray } from "./paginate";
 import { PaginationContainer, PageButton } from "./PaginationStyles"
 
 
