@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TaskCard = styled.div<{ $completed: boolean }>`
+export const TaskCard = styled.div<{ $completed?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -42,7 +42,7 @@ export const TitleBox = styled.div`
   flex-grow: 1;
 `;
 
-export const StatusWrapper = styled.div<{ $completed: boolean }>`
+export const StatusWrapper = styled.div<{ $completed?: boolean }>`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -65,7 +65,7 @@ export const StatusWrapper = styled.div<{ $completed: boolean }>`
   }
 `;
 
-export const StatusDot = styled.span<{ $completed: boolean }>`
+export const StatusDot = styled.span<{ $completed?: boolean }>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -75,7 +75,7 @@ export const StatusDot = styled.span<{ $completed: boolean }>`
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 `;
 
-export const StatusText = styled.p<{ $completed: boolean }>`
+export const StatusText = styled.p<{ $completed?: boolean }>`
   color: ${({ $completed }) => ($completed ? "green" : "orange")};
   transition: color 0.3s ease; 
 `;

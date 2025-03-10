@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useCallback, useMemo } from "react";
 
 import {
   addTask,
@@ -37,39 +37,52 @@ const Home = () => {
   const taskForm = useSelector((state: RootState) => state.tasks.taskForm);
   const error = useSelector((state: RootState) => state.tasks.error);
 
-  const handleModal = (open: boolean) => {
-    dispatch(toggleModal(open));
-    if (!open) resetForm();
-  };
+  const handleModal = useCallback(
+    (open: boolean) => {
+      dispatch(toggleModal(open));
+      if (!open) resetForm();
+    },
+    [dispatch]
+  );
 
-  const handleUpdateTask = () => {
+  const handleEditModal = useCallback(
+    (open: boolean) => {
+      dispatch(toggleEditModal(open));
+      if (!open) resetForm();
+    },
+    [dispatch]
+  );
+
+  const handleUpdateTask = useCallback(() => {
     dispatch(updateTask(taskForm));
     handleEditModal(false);
-  };
+  }, [dispatch, taskForm, handleEditModal]);
 
-  const handleEditModal = (open: boolean) => {
-    dispatch(toggleEditModal(open));
-    if (!open) resetForm();
-  };
-
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     dispatch(
       setTaskForm({ id: "", title: "", description: "", completed: false })
     );
     dispatch(setError(""));
-  };
+  }, [dispatch]);
 
-  const handleFilter = (status: string) => {
-    dispatch(setFilterStatus(status));
-  };
+  const handleFilter = useCallback(
+    (status: string) => {
+      dispatch(setFilterStatus(status));
+    },
+    [dispatch]
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    dispatch(setTaskForm({ ...taskForm, [name]: value }));
-    dispatch(setError(""));
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      dispatch(setTaskForm({ ...taskForm, [name]: value }));
+      dispatch(setError(""));
+    },
+    [dispatch, taskForm]
+  );
 
-  const handleAddTask = () => {
+  const handleAddTask = useCallback(() => {
+    
     const newTask = {
       id: uuidv4(),
       title: taskForm.title,
@@ -78,10 +91,65 @@ const Home = () => {
     };
 
     dispatch(addTask(newTask));
-    if (!newTask.title.trim() || !newTask.description.trim()) return;
+    if (!taskForm.title.trim() || !taskForm.description.trim()) return;
     handleModal(false);
     resetForm();
-  };
+  }, [dispatch, taskForm, handleModal, resetForm]);
+
+  const modalContent = useMemo(
+    () => (
+      <CustomInputWrapper>
+        <CustomInput
+          label="Title"
+          type="text"
+          name="title"
+          value={taskForm.title}
+          onChange={handleChange}
+        />
+        <CustomInput
+          label="Description"
+          type="text"
+          name="description"
+          value={taskForm.description}
+          onChange={handleChange}
+        />
+        {error && <ErrorTag>{error}</ErrorTag>}
+      </CustomInputWrapper>
+    ),
+    [taskForm, handleChange, error]
+  );
+
+  const modalFooter = useMemo(
+    () => (
+      <>
+        <CustomButton
+          bgColor="transparent"
+          textColor="#633CFF"
+          border="1px solid #633CFF"
+          onClick={() => handleModal(false)}
+          text="Cancel"
+        />
+        <CustomButton onClick={handleAddTask} text="Add Task" />
+      </>
+    ),
+    [handleModal, handleAddTask]
+  );
+
+  const editModalFooter = useMemo(
+    () => (
+      <>
+        <CustomButton
+          bgColor="transparent"
+          textColor="#633CFF"
+          border="1px solid #633CFF"
+          onClick={() => handleEditModal(false)}
+          text="Cancel"
+        />
+        <CustomButton onClick={handleUpdateTask} text="Update Task" />
+      </>
+    ),
+    [handleEditModal, handleUpdateTask]
+  );
 
   return (
     <Wrapper>
@@ -103,73 +171,16 @@ const Home = () => {
               isOpen={showModal}
               onClose={() => handleModal(false)}
               header="Add new Task"
-              content={
-                <CustomInputWrapper>
-                  <CustomInput
-                    label="Title"
-                    type="text"
-                    name="title"
-                    value={taskForm.title}
-                    onChange={handleChange}
-                  />
-                  <CustomInput
-                    label="Description"
-                    type="text"
-                    name="description"
-                    value={taskForm.description}
-                    onChange={handleChange}
-                  />
-                  {error && <ErrorTag>{error}</ErrorTag>}
-                </CustomInputWrapper>
-              }
-              footer={
-                <>
-                  <CustomButton
-                    bgColor="transparent"
-                    textColor="#633CFF"
-                    border="1px solid #633CFF"
-                    onClick={() => handleModal(false)}
-                    text="Cancel"
-                  />
-                  <CustomButton onClick={handleAddTask} text="Add Task" />
-                </>
-              }
+              content={modalContent}
+              footer={modalFooter}
             />
 
             <LazyModal
               isOpen={showEditModal}
               onClose={() => handleEditModal(false)}
               header="Edit Task"
-              content={
-                <CustomInputWrapper>
-                  <CustomInput
-                    label="Title"
-                    type="text"
-                    name="title"
-                    value={taskForm.title}
-                    onChange={handleChange}
-                  />
-                  <CustomInput
-                    label="Description"
-                    type="text"
-                    name="description"
-                    value={taskForm.description}
-                    onChange={handleChange}
-                  />
-                </CustomInputWrapper>
-              }
-              footer={
-                <>
-                  <CustomButton
-                    bgColor="transparent"
-                    textColor="#633CFF"
-                    border="1px solid #633CFF"
-                    onClick={() => handleEditModal(false)}
-                    text="Cancel"
-                  />
-                  <CustomButton onClick={handleUpdateTask} text="Update Task" />
-                </>
-              }
+              content={modalContent}
+              footer={editModalFooter}
             />
           </Suspense>
         ) : null}

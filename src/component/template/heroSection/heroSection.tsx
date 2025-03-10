@@ -1,3 +1,4 @@
+import { lazy, Suspense, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { TaskProp } from "../../../store/userSlice/sliceTypes";
@@ -14,9 +15,9 @@ import {
 import { RootState } from "../../../store/store";
 import Tasks from "../../tasks/tasks";
 import { HeroWrapper, NoTaskWrapper, TaskWrapper } from "./HeroStyles";
-import Modal from "../../modal/Modal";
+const LazyModal = lazy(() => import("../../modal/Modal"));
 import CustomButton from "../../customButton/customButton";
-import { useCallback, useEffect, useMemo } from "react";
+import TaskSkeleton from "../../skeletonLoader/skeletonLoader";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const HeroSection = () => {
   return (
     <HeroWrapper>
       {loading ? (
-        <p>Loading...</p>
+        <TaskSkeleton count={3}/>
       ) : filteredTasks.length < 1 ? (
         <NoTaskWrapper>
           <img src={Picture} />
@@ -123,21 +124,25 @@ const HeroSection = () => {
           ))}
         </TaskWrapper>
       )}
-      <Modal
-        isOpen={showDeleteModal}
-        onClose={handleCloseDeleteModal}
-        header="Delete Task"
-        content={<p>Are you sure you want to delete this task</p>}
-        footer={
-          <>
-            <CustomButton onClick={handleCloseDeleteModal} text="No" />
-            <CustomButton
-              onClick={() => handleRemoveTask(taskForm.id)}
-              text="Yes"
-            />
-          </>
-        }
-      />
+      {showDeleteModal ? (
+        <Suspense>
+          <LazyModal
+            isOpen={showDeleteModal}
+            onClose={handleCloseDeleteModal}
+            header="Delete Task"
+            content={<p>Are you sure you want to delete this task</p>}
+            footer={
+              <>
+                <CustomButton onClick={handleCloseDeleteModal} text="No" />
+                <CustomButton
+                  onClick={() => handleRemoveTask(taskForm.id)}
+                  text="Yes"
+                />
+              </>
+            }
+          />
+        </Suspense>
+      ) : null}
     </HeroWrapper>
   );
 };
