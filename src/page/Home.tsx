@@ -9,21 +9,31 @@ import {
   toggleEditModal,
   updateTask,
   setError,
+  setFilterStatus,
 } from "../store/userSlice/slice";
 import { RootState } from "../store/store";
 
 import HeroSection from "../component/template/heroSection/heroSection";
-import CtaSection from "../component/template/ctaSection/ctaSection";
+import CtaSection from "../component/ctaSection/ctaSection";
 import CustomInput from "../component/customInput/customInput";
 import CustomButton from "../component/customButton/customButton";
-import { CustomInputWrapper, ErrorTag, PageContainer, Wrapper } from "./HomeStyles";
+import {
+  CustomInputWrapper,
+  ErrorTag,
+  PageContainer,
+  Wrapper,
+} from "./HomeStyles";
+import CustomDropDown from "../component/customDropdown/customDropDown";
+import { filterData } from "../../public/data/filterData";
 
 const LazyModal = lazy(() => import("../component/modal/Modal"));
 
 const Home = () => {
   const dispatch = useDispatch();
   const showModal = useSelector((state: RootState) => state.tasks.showModal);
-  const showEditModal = useSelector((state: RootState) => state.tasks.showEditModal);
+  const showEditModal = useSelector(
+    (state: RootState) => state.tasks.showEditModal
+  );
   const taskForm = useSelector((state: RootState) => state.tasks.taskForm);
   const error = useSelector((state: RootState) => state.tasks.error);
 
@@ -49,6 +59,10 @@ const Home = () => {
     dispatch(setError(""));
   };
 
+  const handleFilter = (status: string) => {
+    dispatch(setFilterStatus(status));
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(setTaskForm({ ...taskForm, [name]: value }));
@@ -62,7 +76,7 @@ const Home = () => {
       description: taskForm.description,
       completed: false,
     };
-  
+
     dispatch(addTask(newTask));
     if (!newTask.title.trim() || !newTask.description.trim()) return;
     handleModal(false);
@@ -71,12 +85,20 @@ const Home = () => {
 
   return (
     <Wrapper>
-    <PageContainer>
-      <CtaSection />
-      <HeroSection />
-      {showModal || showEditModal ? (
-        <Suspense>
-          
+      <PageContainer>
+        <CtaSection
+          header="Task Management Tabs"
+          paragraph="Add/edit/remove Tasks below."
+          footer={
+            <>
+              <CustomButton text="Add Task" onClick={() => handleModal(true)} />
+              <CustomDropDown onSelect={handleFilter} options={filterData} />
+            </>
+          }
+        />
+        <HeroSection />
+        {showModal || showEditModal ? (
+          <Suspense>
             <LazyModal
               isOpen={showModal}
               onClose={() => handleModal(false)}
@@ -102,8 +124,14 @@ const Home = () => {
               }
               footer={
                 <>
-                  <CustomButton bgColor="transparent" textColor="#633CFF" border="1px solid #633CFF" onClick={() => handleModal(false)} text="Cancel"/>
-                  <CustomButton onClick={handleAddTask} text="Add Task"/>
+                  <CustomButton
+                    bgColor="transparent"
+                    textColor="#633CFF"
+                    border="1px solid #633CFF"
+                    onClick={() => handleModal(false)}
+                    text="Cancel"
+                  />
+                  <CustomButton onClick={handleAddTask} text="Add Task" />
                 </>
               }
             />
@@ -132,14 +160,20 @@ const Home = () => {
               }
               footer={
                 <>
-                  <CustomButton bgColor="transparent" textColor="#633CFF" border="1px solid #633CFF" onClick={() => handleEditModal(false)} text="Cancel"/>
-                  <CustomButton onClick={handleUpdateTask} text="Update Task"/>
+                  <CustomButton
+                    bgColor="transparent"
+                    textColor="#633CFF"
+                    border="1px solid #633CFF"
+                    onClick={() => handleEditModal(false)}
+                    text="Cancel"
+                  />
+                  <CustomButton onClick={handleUpdateTask} text="Update Task" />
                 </>
               }
             />
-        </Suspense>
-      ) : null}
-    </PageContainer>
+          </Suspense>
+        ) : null}
+      </PageContainer>
     </Wrapper>
   );
 };

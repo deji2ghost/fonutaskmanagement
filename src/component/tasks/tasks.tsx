@@ -12,36 +12,30 @@ import {
   Title,
   TitleBox,
 } from "./TaskStyles";
-import { useDispatch } from "react-redux";
-import { toggleTaskCompletion } from "../../store/userSlice/slice";
 
 const Tasks: React.FC<taskPropTypes> = ({
   title,
   description,
   id,
   task,
+  completed,
   handleEditModal,
-  handleDeleteModal
+  handleDeleteModal,
+  handleTaskCompletion,
 }) => {
-  const dispatch = useDispatch();
-
-  const handleTaskCompletion = (id: string) => {
-    dispatch(toggleTaskCompletion(id));
-  };
-
   return (
-    <TaskCard completed={task.completed} key={id}>
+    <TaskCard $completed={completed} key={id}>
       <CardHeader>
         <StatusWrapper
           onClick={() => handleTaskCompletion(id)}
-          completed={task.completed}
+          $completed={completed}
         >
           <StatusDot
-            completed={task.completed}
+            $completed={completed}
             onClick={() => handleTaskCompletion(id)}
           />
-          <StatusText completed={task.completed}>
-            {task.completed ? "Completed" : "Active"}
+          <StatusText $completed={completed}>
+            {completed ? "Completed" : "Active"}
           </StatusText>
         </StatusWrapper>
         <TaskActions>

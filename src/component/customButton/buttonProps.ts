@@ -1,12 +1,12 @@
 import { JSX } from "react";
 
 export interface ButtonProps {
-    bgColor?: string;
-    textColor?: string;
-    size?: "small" | "medium" | "large";
-    width?: string,
-    border?: string 
-    justify?: string
+    $bgColor?: string;
+    $textColor?: string;
+    $size?: "small" | "medium" | "large";
+    $width?: string,
+    $border?: string 
+    $justify?: string
 }
 
 export interface MainButtonProps {

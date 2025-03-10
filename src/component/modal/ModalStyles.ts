@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Modal background overlay
 export const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -25,7 +24,6 @@ export const Overlay = styled.div`
   }
 `;
 
-// Modal container (Responsive)
 export const ModalContainer = styled.div`
   background: white;
   width: 90%;
@@ -36,11 +34,11 @@ export const ModalContainer = styled.div`
   animation: slideUp 0.3s ease-in-out;
 
   @media (min-width: 768px) {
-    max-width: 600px; /* Tablet */
+    max-width: 600px;
   }
 
   @media (min-width: 1024px) {
-    max-width: 700px; /* Desktop */
+    max-width: 700px;
   }
 
   @keyframes slideUp {
@@ -55,7 +53,6 @@ export const ModalContainer = styled.div`
   }
 `;
 
-// Modal header
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -70,7 +67,6 @@ export const Header = styled.div`
   }
 `;
 
-// Close button (Larger touch area for mobile)
 export const CloseButton = styled.button`
   background: none;
   border: none;
@@ -90,7 +86,6 @@ export const CloseButton = styled.button`
   }
 `;
 
-// Modal content
 export const Content = styled.div`
   padding: 20px;
   font-size: 16px;
@@ -102,12 +97,9 @@ export const Content = styled.div`
   }
 `;
 
-// Modal footer
 export const Footer = styled.div`
   padding: 15px 20px;
   background: #f1f1f1;
   display: flex;
-  /* flex-direction: row; */
-  /* justify-content: flex-end; */
   gap: 30px;
 `;

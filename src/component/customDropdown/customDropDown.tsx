@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
-import { DropdownContainer, DropdownItem, DropdownMenu } from "./dropdownStyles";
+import {
+  DropdownContainer,
+  DropdownItem,
+  DropdownMenu,
+} from "./dropdownStyles";
 import CustomButton from "../customButton/customButton";
-import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/localstorage/localstorage";
+import {
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from "../../utils/localstorage/localstorage";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 interface DropdownButtonProps {
@@ -36,7 +43,7 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
       <CustomButton
         dropdown
         text={selectedOption ? selectedOption : "All"}
-        icon={isOpen ? <BiChevronUp /> : <BiChevronDown />} 
+        icon={isOpen ? <BiChevronUp /> : <BiChevronDown />}
         width="100%"
         justify="space-between"
         bgColor="transparent"
@@ -50,7 +57,7 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
             <DropdownItem
               key={option}
               onClick={() => {
-                handleSelect(option)
+                handleSelect(option);
               }}
             >
               {option}

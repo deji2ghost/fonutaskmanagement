@@ -14,11 +14,11 @@ const CustomButton: React.FC<MainButtonProps> = ({
 }) => {
   return (
     <Button
-      width={width}
-      bgColor={bgColor}
-      textColor={textColor}
-      border={border}
-      justify={justify}
+      $width={width}
+      $bgColor={bgColor}
+      $textColor={textColor}
+      $border={border}
+      $justify={justify}
       onClick={onClick}
     >
       {dropdown ? (

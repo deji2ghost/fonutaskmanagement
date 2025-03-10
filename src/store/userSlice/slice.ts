@@ -15,6 +15,7 @@ const initialState: TaskState = {
   showDeleteModal: false,
   taskForm: { id: "", title: "", description: "", completed: false },
   error: "",
+  loading: true,
 };
 
 const taskSlice = createSlice({
@@ -76,6 +77,9 @@ const taskSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
@@ -90,6 +94,7 @@ export const {
   toggleEditModal,
   toggleDeleteModal,
   setError,
+  setLoading
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

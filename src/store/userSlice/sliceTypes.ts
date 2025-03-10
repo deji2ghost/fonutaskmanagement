@@ -13,4 +13,5 @@ export interface TaskState {
   showDeleteModal: boolean;
   taskForm: TaskProp;
   error: string,
+  loading: boolean,
 }

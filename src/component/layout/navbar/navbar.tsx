@@ -1,13 +1,13 @@
-import { NavbarWrapper, NavHead } from "./NavbarStyles"
-import Picture from "../../../../public/images/Vector (5).svg"
+import { NavbarWrapper, NavHead } from "./NavbarStyles";
+import { NavbarProps } from "./NavbarTypes";
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ text, pic }) => {
   return (
     <NavbarWrapper>
-      <img src={Picture} />
-      <NavHead>Manage Task</NavHead>
+      <img src={pic} />
+      <NavHead>{text}</NavHead>
     </NavbarWrapper>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

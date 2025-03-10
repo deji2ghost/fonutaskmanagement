@@ -1,7 +1,14 @@
 import React from "react";
 import { ModalProps } from "./modalTypes";
 import { IoClose } from "react-icons/io5";
-import { CloseButton, Content, Footer, Header, ModalContainer, Overlay } from "./ModalStyles";
+import {
+  CloseButton,
+  Content,
+  Footer,
+  Header,
+  ModalContainer,
+  Overlay,
+} from "./ModalStyles";
 
 const Modal: React.FC<ModalProps> = ({
   isOpen,
