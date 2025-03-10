@@ -85,26 +85,30 @@ const HeroSection = () => {
   return (
     <HeroWrapper>
       {loading ? (
-        <TaskSkeleton count={3}/>
+        <TaskSkeleton count={3} />
       ) : filteredTasks.length < 1 ? (
         <NoTaskWrapper>
           <img src={Picture} />
-          <h1>Let’s get you started</h1>
-          <p>
-            Use the “Add new Task” button to get started. Once you have more
-            than one link, you can reorder and edit them. We’re here to help you
-            manage your tasks
-          </p>
-        </NoTaskWrapper>
-      ) : tasks.length < 1 ? (
-        <NoTaskWrapper>
-          <img src={Picture} />
-          <h1>Let’s get you started</h1>
-          <p>
-            Use the “Add new Task” button to get started. Once you have more
-            than one link, you can reorder and edit them. We’re here to help you
-            manage your tasks
-          </p>
+          {filterStatus === "Completed" ? (
+            <>
+              <h1>No Completed Tasks</h1>
+              <p>You have no completed tasks at the moment.</p>
+            </>
+          ) : filterStatus === "Active" ? (
+            <>
+              <h1>No Active Tasks</h1>
+              <p>You have no active tasks at the moment.</p>
+            </>
+          ) : (
+            <>
+              <h1>Let’s get you started</h1>
+              <p>
+                Use the “Add new Task” button to get started. Once you have more
+                than one link, you can reorder and edit them. We’re here to help
+                you manage your tasks.
+              </p>
+            </>
+          )}
         </NoTaskWrapper>
       ) : (
         <TaskWrapper>
