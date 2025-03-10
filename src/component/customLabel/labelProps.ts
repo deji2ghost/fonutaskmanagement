@@ -1,3 +1,4 @@
 export interface labelProps{
-    label: string
+    label: string,
+    htmlFor: string;
 }

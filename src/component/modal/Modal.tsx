@@ -17,14 +17,22 @@ const Modal: React.FC<ModalProps> = ({
   content,
   footer,
 }) => {
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   return (
     <>
       {isOpen && (
-        <Overlay onClick={onClose}>
-          <ModalContainer onClick={(e) => e.stopPropagation()}>
+        <Overlay data-testid="modal-overlay" onClick={handleOverlayClick}>
+          <ModalContainer data-testid="modal-container" >
             <Header>
               <h3>{header}</h3>
-              <CloseButton onClick={onClose}>
+              <CloseButton onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}>
                 <IoClose size={24} />
               </CloseButton>
             </Header>

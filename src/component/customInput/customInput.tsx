@@ -9,10 +9,12 @@ const CustomInput: React.FC<inputProps> = ({
   value,
   onChange,
 }) => {
+  const inputId = `${name}-input`;
   return (
     <InputWrapper>
-      <CustomLabel label={label} />
+      <CustomLabel htmlFor={inputId} label={label} />
       <InputComponent
+        id={inputId}
         type={type}
         name={name}
         value={value}
