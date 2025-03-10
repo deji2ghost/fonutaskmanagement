@@ -137,7 +137,7 @@ const HeroSection = () => {
           ))}
         </TaskWrapper>
       )}
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      { totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />}
       {showDeleteModal ? (
         <Suspense>
           <LazyModal
