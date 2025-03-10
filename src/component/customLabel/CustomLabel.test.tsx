@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom"; // Ensure this is imported
+import "@testing-library/jest-dom";
+
 import CustomLabel from "./customLabel";
 
 describe("CustomLabel Component", () => {

@@ -105,11 +105,11 @@ export const IconButton = styled.button<{ color: string }>`
   transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 
   svg {
-    font-size: 1.5rem; /* Adjust the icon size */
+    font-size: 1.5rem;
   }
 
   &:hover {
     transform: scale(1.1);
-    color: ${({ color }) => color + "AA"}; /* Slight opacity change */
+    color: ${({ color }) => color + "AA"};
   }
 `;

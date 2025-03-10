@@ -1,4 +1,5 @@
 import { render, fireEvent, screen } from "@testing-library/react";
+
 import Modal from "./Modal";
 
 describe("Modal Component", () => {
@@ -12,7 +13,7 @@ describe("Modal Component", () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks(); // Reset mock calls before each test
+    jest.clearAllMocks();
   });
 
   test("calls onClose when clicking the overlay", () => {
@@ -22,7 +23,7 @@ describe("Modal Component", () => {
 
     fireEvent.click(overlay);
 
-    expect(mockOnClose).toHaveBeenCalledTimes(1); // ✅ Should only be called once
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 
   test("does not close modal when clicking inside the modal", () => {
@@ -32,6 +33,6 @@ describe("Modal Component", () => {
 
     fireEvent.click(modalContainer);
 
-    expect(mockOnClose).not.toHaveBeenCalled(); // ✅ onClose should NOT be triggered
+    expect(mockOnClose).not.toHaveBeenCalled();
   });
 });

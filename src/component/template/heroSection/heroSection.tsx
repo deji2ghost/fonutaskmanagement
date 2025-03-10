@@ -1,8 +1,11 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import TaskSkeleton from "../../skeletonLoader/skeletonLoader";
 
 import { TaskProp } from "../../../store/userSlice/sliceTypes";
+import { RootState } from "../../../store/store";
 
+const LazyModal = lazy(() => import("../../modal/Modal"));
 import Picture from "../../../../public/images/Group 273.svg";
 import {
   removeTask,
@@ -12,12 +15,9 @@ import {
   toggleEditModal,
   toggleTaskCompletion,
 } from "../../../store/userSlice/slice";
-import { RootState } from "../../../store/store";
 import Tasks from "../../tasks/tasks";
 import { HeroWrapper, NoTaskWrapper, TaskWrapper } from "./HeroStyles";
-const LazyModal = lazy(() => import("../../modal/Modal"));
 import CustomButton from "../../customButton/customButton";
-import TaskSkeleton from "../../skeletonLoader/skeletonLoader";
 
 const HeroSection = () => {
   const dispatch = useDispatch();

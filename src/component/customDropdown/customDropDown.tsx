@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+
+import CustomButton from "../customButton/customButton";
 import {
   DropdownContainer,
   DropdownItem,
   DropdownMenu,
 } from "./dropdownStyles";
-import CustomButton from "../customButton/customButton";
 import {
   loadFromLocalStorage,
   saveToLocalStorage,
 } from "../../utils/localstorage/localstorage";
-import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 interface DropdownButtonProps {
   options: string[];
@@ -21,15 +22,14 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
   onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("All");
+  const [selectedOption, setSelectedOption] = useState<string>(() => {
+    const savedOption = loadFromLocalStorage("selectedFilter");
+    return savedOption && savedOption.length ? savedOption : "All";
+  });
 
   useEffect(() => {
-    const savedOption = loadFromLocalStorage("selectedFilter");
-    if (savedOption) {
-      setSelectedOption(savedOption);
-      onSelect(savedOption);
-    }
-  }, [onSelect]);
+    onSelect(selectedOption);
+  }, [selectedOption]);
 
   const handleSelect = (option: string) => {
     setSelectedOption(option);
@@ -42,7 +42,7 @@ const CustomDropDown: React.FC<DropdownButtonProps> = ({
     <DropdownContainer>
       <CustomButton
         dropdown
-        text={selectedOption ? selectedOption : "All"}
+        text={selectedOption}
         icon={isOpen ? <BiChevronUp /> : <BiChevronDown />}
         width="100%"
         justify="space-between"

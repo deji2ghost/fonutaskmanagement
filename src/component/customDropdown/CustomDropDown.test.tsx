@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
+
 import CustomDropDown from "./customDropDown";
 import * as localStorageUtils from "../../utils/localstorage/localstorage";
 
@@ -18,8 +19,6 @@ describe("CustomDropDown Component", () => {
 
     fireEvent.click(screen.getByText("All"));
     fireEvent.click(screen.getByText("Option 1"));
-
-    console.log("Dropdown should be closed now");
 
     await waitFor(() => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();

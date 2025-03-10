@@ -1,6 +1,7 @@
 import React from "react";
-import { ModalProps } from "./modalTypes";
 import { IoClose } from "react-icons/io5";
+
+import { ModalProps } from "./modalTypes";
 import {
   CloseButton,
   Content,

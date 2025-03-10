@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import "jest-styled-components";
+
 import CtaSection from "./ctaSection";
 import CustomButton from "../customButton/customButton";
-import "jest-styled-components";
 
 
 describe("CtaSection Component", () => {
