@@ -16,7 +16,7 @@ import Tasks from "../../tasks/tasks";
 import { HeroWrapper, NoTaskWrapper, TaskWrapper } from "./HeroStyles";
 import Modal from "../../modal/Modal";
 import CustomButton from "../../customButton/customButton";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -28,50 +28,43 @@ const HeroSection = () => {
   const loading = useSelector((state: RootState) => state.tasks.loading);
   const filterStatus = useSelector((state: RootState) => state.tasks.status);
 
-  const handleRemoveTask = (taskId: string) => {
-    dispatch(removeTask(taskId));
-    handleCloseDeleteModal();
-  };
+  const handleRemoveTask = useCallback(
+    (taskId: string) => {
+      dispatch(removeTask(taskId));
+      handleCloseDeleteModal();
+    },
+    [dispatch]
+  );
 
-  const handleEditModal = (task: TaskProp) => {
-    dispatch(toggleEditModal(true));
-    dispatch(
-      setTaskForm({
-        id: task.id,
-        description: task.description,
-        title: task.title,
-        completed: task.completed,
-      })
-    );
-  };
+  const handleEditModal = useCallback(
+    (task: TaskProp) => {
+      dispatch(toggleEditModal(true));
+      dispatch(setTaskForm(task));
+    },
+    [dispatch]
+  );
 
-  const handleDeleteModal = (task: TaskProp) => {
-    dispatch(toggleDeleteModal(true));
-    dispatch(
-      setTaskForm({
-        id: task.id,
-        description: task.description,
-        title: task.title,
-        completed: task.completed,
-      })
-    );
-  };
+  const handleDeleteModal = useCallback(
+    (task: TaskProp) => {
+      dispatch(toggleDeleteModal(true));
+      dispatch(setTaskForm(task));
+    },
+    [dispatch]
+  );
 
-  const handleCloseDeleteModal = () => {
+  const handleCloseDeleteModal = useCallback(() => {
     dispatch(toggleDeleteModal(false));
     dispatch(
-      setTaskForm({
-        id: "",
-        description: "",
-        title: "",
-        completed: "",
-      })
+      setTaskForm({ id: "", description: "", title: "", completed: "" })
     );
-  };
+  }, [dispatch]);
 
-  const handleTaskCompletion = (id: string) => {
-    dispatch(toggleTaskCompletion(id));
-  };
+  const handleTaskCompletion = useCallback(
+    (id: string) => {
+      dispatch(toggleTaskCompletion(id));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -79,12 +72,14 @@ const HeroSection = () => {
     }, 3000);
   }, []);
 
-  const filteredTasks = tasks.filter((task: TaskProp) => {
-    if (filterStatus === "All") return true;
-    if (filterStatus === "Completed") return task.completed;
-    if (filterStatus === "Active") return !task.completed;
-    return true;
-  });
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task: TaskProp) => {
+      if (filterStatus === "All") return true;
+      if (filterStatus === "Completed") return task.completed;
+      if (filterStatus === "Active") return !task.completed;
+      return true;
+    });
+  }, [tasks, filterStatus]);
 
   return (
     <HeroWrapper>
