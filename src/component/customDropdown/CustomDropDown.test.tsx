@@ -6,6 +6,7 @@ import * as localStorageUtils from "../../utils/localstorage/localstorage";
 
 const options = ["Option 1", "Option 2", "Option 3"];
 const mockOnSelect = jest.fn();
+const filterStatus = "All"
 
 describe("CustomDropDown Component", () => {
   beforeEach(() => {
@@ -15,7 +16,7 @@ describe("CustomDropDown Component", () => {
   });
 
   test("closes dropdown after selecting an option", async () => {
-    render(<CustomDropDown options={options} onSelect={mockOnSelect} />);
+    render(<CustomDropDown filterStatus={filterStatus} options={options} onSelect={mockOnSelect} />);
 
     fireEvent.click(screen.getByText("All"));
     fireEvent.click(screen.getByText("Option 1"));

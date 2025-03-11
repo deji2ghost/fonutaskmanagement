@@ -44,6 +44,10 @@ const taskSlice = createSlice({
       saveToLocalStorage("filterStatus", action.payload);
     },
     updateTask: (state, action) => {
+      if (!action.payload.title.trim() || !action.payload.description.trim()) {
+        state.error = "Title and Description cannot be empty.";
+        return;
+      }
       const index = state.tasks.findIndex(
         (task) => task.id === action.payload.id
       );

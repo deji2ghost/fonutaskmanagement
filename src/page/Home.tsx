@@ -31,6 +31,7 @@ const LazyModal = lazy(() => import("../component/modal/Modal"));
 const Home = () => {
   const dispatch = useDispatch();
   const showModal = useSelector((state: RootState) => state.tasks.showModal);
+  const filterStatus = useSelector((state: RootState) => state.tasks.status);
   const showEditModal = useSelector(
     (state: RootState) => state.tasks.showEditModal
   );
@@ -55,6 +56,7 @@ const Home = () => {
 
   const handleUpdateTask = useCallback(() => {
     dispatch(updateTask(taskForm));
+    if (!taskForm.title.trim() || !taskForm.description.trim()) return;
     handleEditModal(false);
   }, [dispatch, taskForm, handleEditModal]);
 
@@ -160,7 +162,7 @@ const Home = () => {
           footer={
             <>
               <CustomButton text="Add Task" onClick={() => handleModal(true)} />
-              <CustomDropDown onSelect={handleFilter} options={filterData} />
+              <CustomDropDown onSelect={handleFilter} filterStatus={filterStatus} options={filterData} />
             </>
           }
         />

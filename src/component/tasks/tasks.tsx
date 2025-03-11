@@ -33,7 +33,6 @@ const Tasks: React.FC<taskPropTypes> = ({
         >
           <StatusDot
             $completed={completed}
-            onClick={() => handleTaskCompletion(id)}
           />
           <StatusText $completed={completed}>
             {completed ? "Completed" : "Active"}

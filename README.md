@@ -32,7 +32,7 @@ Make sure you have **Node.js** and **npm** installed on your system.
 
 ### Installation
 1. **Clone the repository:**
-   ``
+   ```sh
    git clone https://github.com/deji2ghost/fonutaskmanagement.git
    cd task-management-app
    ```

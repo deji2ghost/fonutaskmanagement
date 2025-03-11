@@ -15,16 +15,18 @@ import {
 interface DropdownButtonProps {
   options: string[];
   onSelect: (option: string) => void;
+  filterStatus: string
 }
 
 const CustomDropDown: React.FC<DropdownButtonProps> = ({
   options,
   onSelect,
+  filterStatus,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>(() => {
     const savedOption = loadFromLocalStorage("selectedFilter");
-    return savedOption && savedOption.length ? savedOption : "All";
+    return savedOption && savedOption.length ? savedOption : filterStatus;
   });
 
   useEffect(() => {
