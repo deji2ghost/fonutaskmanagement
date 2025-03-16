@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const NavbarWrapper = styled.div`
   display: flex;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: ${({ theme }) => theme.colors.secondary};
   gap: 5px;
   padding: 0px 24px;
 

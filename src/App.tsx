@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./component/layout/navbar/navbar";
-import { GlobalStyles } from "./GlobalStyles.style";
+import { GlobalStyles } from "./styles/GlobalStyles.style";
 import Home from "./page/Home";
 import Picture from "../public/images/Vector (5).svg";
 

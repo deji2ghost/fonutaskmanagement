@@ -25,7 +25,7 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.secondary};
   width: 90%;
   max-width: 500px;
   border-radius: 10px;
@@ -58,8 +58,8 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  background: #633CFF;
-  color: white;
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
   font-size: 18px;
 
   @media (min-width: 768px) {
@@ -69,8 +69,8 @@ export const Header = styled.div`
 
 export const CloseButton = styled.button`
   background: none;
-  border: none;
-  color: white;
+  border: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
   cursor: pointer;
   font-size: 1.5rem;
   padding: 8px;
@@ -89,7 +89,7 @@ export const CloseButton = styled.button`
 export const Content = styled.div`
   padding: 20px;
   font-size: 16px;
-  color: #333;
+  color: ${({ theme }) => theme.colors.title};
 
   @media (max-width: 480px) {
     padding: 15px;
@@ -99,7 +99,7 @@ export const Content = styled.div`
 
 export const Footer = styled.div`
   padding: 15px 20px;
-  background: #f1f1f1;
+  background: ${({ theme }) => theme.colors.background};
   display: flex;
   gap: 30px;
 `;

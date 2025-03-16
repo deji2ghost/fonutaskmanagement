@@ -12,9 +12,9 @@ export const DropdownMenu = styled.ul`
   top: 100%;
   left: 0;
   text-align: center;
-  color: #FFFFFF;
-  background: #633CFF;
-  border: 1px solid #ddd;
+  color: ${({ theme }) => theme.colors.secondary};
+  background: ${({ theme }) => theme.colors.primary};
+  border: ${({ theme }) => `1px solid ${theme.colors.cardBorder} `};
   border-radius: 6px;
   margin-top: 5px;
   padding: 0;
@@ -34,7 +34,7 @@ export const DropdownItem = styled.li`
   align-items: center;
 
   &:hover {
-    background: #f0f0f0;
-    color: #633CFF;
+    background: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;

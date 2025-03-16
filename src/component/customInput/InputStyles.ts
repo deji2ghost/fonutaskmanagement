@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
 
 export const InputComponent = styled.input`
     padding: 12px 16px;
-    border: 1px solid #D9D9D9;
+    border: ${({ theme }) => `1px solid ${theme.colors.border}`};
     outline: none;
     border-radius: 8px;
 `

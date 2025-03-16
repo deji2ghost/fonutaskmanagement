@@ -36,7 +36,7 @@ export const NoTaskWrapper = styled.div`
   border-radius: 12px;
   padding: 20px;
   width: 100%;
-  background-color: #fafafa;
+  background-color: ${({ theme }) => theme.colors.cardBackground};
   min-height: 100vh;
 
   @media (min-width: 768px) {

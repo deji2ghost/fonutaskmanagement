@@ -6,6 +6,7 @@ export const ButtonContainer = styled.div`
   border-radius: 8px;
 `;
 
+
 export const Button = styled.button<ButtonProps>`
   padding: 11px 27px;
   display: flex;
@@ -17,8 +18,8 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
-  background: ${({ $bgColor }) => $bgColor || "#633CFF"};
-  color: ${({ $textColor }) => $textColor || "#ffffff"};
+  background: ${({ $bgColor, theme }) => $bgColor || theme.colors.primary};
+  color: ${({ $textColor, theme }) => $textColor || theme.colors.secondary};
   width: ${({ $width }) => $width || "100%"};
 
   svg {

@@ -28,7 +28,7 @@ export const HeadContainer = styled.div`
 export const CtaHeader = styled.h1`
   font-size: 24px;
   font-weight: 700;
-  color: #333333;
+  color: ${({ theme }) => theme.colors.title};
 `;
 
 export const ButtonWrapper = styled.div`
@@ -44,5 +44,5 @@ export const ButtonWrapper = styled.div`
 export const CtaParagraph = styled.h1`
   font-size: 16px;
   font-weight: 400;
-  color: #737373;
-`
+  color: ${({ theme }) => theme.colors.description};
+`;

@@ -12,7 +12,7 @@ export const CustomInputWrapper = styled.div`
 `
 
 export const ErrorTag = styled.p`
-  color: red;
+  color: ${({ theme }) => theme.colors.error}
 `
 
 export const PageContainer = styled.div`
@@ -22,7 +22,7 @@ export const PageContainer = styled.div`
   gap: 20px;
   padding: 24px;
   min-height: 100vh;
-  background: #FFFFFF;
+  background: ${({ theme }) => theme.colors.secondary};
   border-radius: 12px;
   overflow-x: hidden;
   

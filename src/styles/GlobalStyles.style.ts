@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Roboto', sans-serif;
-    background-color: #EFEBFF;
+    background-color: ${({ theme }) => theme.colors.background};
     margin: 0;
     padding: 0;
     overflow-x: hidden;

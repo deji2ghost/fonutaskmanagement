@@ -23,8 +23,8 @@ const CustomButton: React.FC<MainButtonProps> = ({
     >
       {dropdown ? (
         <>
-          <>{text}</>
-          <>{icon}</>
+        {text}
+        {icon}
         </>
       ) : (
         text

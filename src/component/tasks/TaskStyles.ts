@@ -5,14 +5,14 @@ export const TaskCard = styled.div<{ $completed?: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: #FAFAFA;
+  background: ${({ theme }) => theme.colors.cardBackground};
   width: 100%;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   cursor: pointer;
-  border-bottom: ${({$completed}) => ($completed ? "1px solid green" : "1px solid orange")};
+  border-bottom: ${({$completed, theme}) => ($completed ? `1px solid ${theme.colors.completed}` : `1px solid ${theme.colors.active}`)};
 
   &:hover {
     transform: translateY(-3px);
@@ -54,7 +54,7 @@ export const StatusWrapper = styled.div<{ $completed?: boolean }>`
   border-radius: 8px;
   cursor: pointer;
   background-color: transparent;
-  border: ${({ $completed }) => ($completed ? "1px solid green" : "1px solid orange")};
+  border: ${({$completed, theme}) => ($completed ? `1px solid ${theme.colors.completed}` : `1px solid ${theme.colors.active}`)};
   transition: border-color 0.3s ease, background-color 0.3s ease;
 
   @media (min-width: 768px) {
@@ -73,25 +73,25 @@ export const StatusDot = styled.span<{ $completed?: boolean }>`
   height: 12px;
   border-radius: 50%;
   cursor: pointer;
-  background-color: ${({ $completed }) => ($completed ? "green" : "orange")};
-  box-shadow: 0 0 8px ${({ $completed }) => ($completed ? "green" : "orange")};
+  background-color: ${({$completed, theme}) => ($completed ? theme.colors.completed : theme.colors.active)};
+  box-shadow: 0 0 8px ${({$completed, theme}) => ($completed ? theme.colors.completed : theme.colors.active)};
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 `;
 
 export const StatusText = styled.p<{ $completed?: boolean }>`
-  color: ${({ $completed }) => ($completed ? "green" : "orange")};
+  color: ${({$completed, theme}) => ($completed ? theme.colors.completed : theme.colors.active)};
   transition: color 0.3s ease; 
 `;
 
 export const Title = styled.h3`
   font-size: 18px;
-  color: #333;
+  color: ${({ theme }) => theme.colors.title};
   text-align: center;
 `;
 
 export const Description = styled.p`
   font-size: 14px;
-  color: #666;
+  color: ${({ theme }) => theme.colors.description};
   text-align: center;
 `;
 
